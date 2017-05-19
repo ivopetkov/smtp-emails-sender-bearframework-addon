@@ -13,8 +13,8 @@
     ],
     "require": {
         "php": ">=7.1",
-        "bearframework/bearframework": "dev-master",
-        "bearframework/emails-addon": "*",
+        "bearframework/bearframework": "0.10.0-beta.1",
+        "bearframework/emails-addon": "0.4.0-beta.1",
         "swiftmailer/swiftmailer": "5.4.*"
     },
     "require-dev": {
