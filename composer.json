@@ -14,7 +14,7 @@
     "require": {
         "php": ">=7.1",
         "bearframework/bearframework": "0.10.*@beta",
-        "bearframework/emails-addon": "0.4.*@beta",
+        "bearframework/emails-addon": "0.4.*@beta|0.5.*@beta",
         "swiftmailer/swiftmailer": "5.4.*"
     },
     "require-dev": {
