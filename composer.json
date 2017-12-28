@@ -15,6 +15,7 @@
         "php": ">=7.1",
         "bearframework/bearframework": "0.10.*@beta",
         "bearframework/emails-addon": "0.4.*@beta|0.5.*@beta",
+        "ivopetkov/swiftmailer-bearframework-addon": "0.1.*@beta",
         "swiftmailer/swiftmailer": "5.4.*"
     },
     "require-dev": {

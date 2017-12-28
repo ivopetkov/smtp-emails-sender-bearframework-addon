@@ -9,6 +9,7 @@
 
 BearFramework\Addons::register('ivopetkov/smtp-emails-sender-bearframework-addon', __DIR__, [
     'require' => [
-        'bearframework/emails-addon'
+        'bearframework/emails-addon',
+        'ivopetkov/swiftmailer-bearframework-addon'
     ]
 ]);
