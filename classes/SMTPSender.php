@@ -25,7 +25,7 @@ class SMTPSender implements \BearFramework\Emails\ISender
             foreach ($options['accounts'] as $account) {
                 if (is_array($account) && isset($account['email'], $account['server'], $account['port'], $account['username'], $account['password'])) {
                     if (strlen($email->sender->email) > 0 && $account['email'] === $email->sender->email) {
-                        $transport = \Swift_SmtpTransport::newInstance($account['server'], $account['port']);
+                        $transport = new \Swift_SmtpTransport($account['server'], $account['port']);
                         $transport->setUsername($account['username']);
                         $transport->setPassword($account['password']);
                         $transport->setLocalDomain('[127.0.0.1]');
@@ -34,7 +34,7 @@ class SMTPSender implements \BearFramework\Emails\ISender
                         }
 
                         $result = $app->swiftMailer->send($transport, $email);
-                        
+
                         if ($result === 0) {
                             throw new \Exception('The email cannot be send.');
                         }
