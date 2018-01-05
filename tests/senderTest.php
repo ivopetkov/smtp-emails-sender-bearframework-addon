@@ -44,7 +44,7 @@ class SenderTest extends BearFrameworkAddonTestCase
         try {
             $app->emails->send($email);
         } catch (\Exception $e) {
-            $this->assertTrue(strpos($e->getMessage(), 'Connection could not be established with host') !== false);
+            $this->assertTrue(strpos($e->getMessage(), 'The email cannot be send (reason: Connection could not be established') !== false);
             return;
         }
         $this->assertFalse(true); // Should not come here.

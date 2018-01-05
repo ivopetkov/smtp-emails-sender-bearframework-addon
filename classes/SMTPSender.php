@@ -17,29 +17,36 @@ use BearFramework\App;
 class SMTPSender implements \BearFramework\Emails\ISender
 {
 
+    private $accounts = [];
+
+    public function __construct(array $accounts = [])
+    {
+        $this->accounts = $accounts;
+    }
+
     public function send(\BearFramework\Emails\Email $email): bool
     {
         $app = App::get();
-        $options = $app->addons->get('ivopetkov/smtp-emails-sender-bearframework-addon')->options;
-        if (isset($options['accounts']) && is_array($options['accounts'])) {
-            foreach ($options['accounts'] as $account) {
-                if (is_array($account) && isset($account['email'], $account['server'], $account['port'], $account['username'], $account['password'])) {
-                    if (strlen($email->sender->email) > 0 && $account['email'] === $email->sender->email) {
-                        $transport = new \Swift_SmtpTransport($account['server'], $account['port']);
-                        $transport->setUsername($account['username']);
-                        $transport->setPassword($account['password']);
-                        $transport->setLocalDomain('[127.0.0.1]');
-                        if (isset($account['encryption'])) {
-                            $transport->setEncryption(strtolower($account['encryption']));
-                        }
-
-                        $result = $app->swiftMailer->send($transport, $email);
-
-                        if ($result === 0) {
-                            throw new \Exception('The email cannot be send.');
-                        }
-                        return true;
+        foreach ($this->accounts as $account) {
+            if (is_array($account) && isset($account['email'], $account['server'], $account['port'], $account['username'], $account['password'])) {
+                if (strlen($email->sender->email) > 0 && $account['email'] === $email->sender->email) {
+                    $transport = new \Swift_SmtpTransport($account['server'], $account['port']);
+                    $transport->setUsername($account['username']);
+                    $transport->setPassword($account['password']);
+                    $transport->setLocalDomain('[127.0.0.1]');
+                    if (isset($account['encryption'])) {
+                        $transport->setEncryption(strtolower($account['encryption']));
                     }
+                    try {
+                        $result = $app->swiftMailer->send($transport, $email);
+                    } catch (\Exception $e) {
+                        $result = 0;
+                        $failureReason = $e->getMessage();
+                    }
+                    if ($result === 0) {
+                        throw new \Exception('The email cannot be send (reason: ' . (isset($failureReason) ? $failureReason : 'unknown') . ')');
+                    }
+                    return true;
                 }
             }
         }
