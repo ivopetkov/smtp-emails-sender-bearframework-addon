@@ -10,8 +10,30 @@
 /**
  * @runTestsInSeparateProcesses
  */
-class SenderTest extends BearFrameworkAddonTestCase
+class SenderTest extends BearFramework\AddonTests\PHPUnitTestCase
 {
+
+    /**
+     * 
+     */
+    protected function setUp()
+    {
+        $this->initializeApp([
+            'addonOptions' => [
+                'accounts' => [
+                    [
+                        'email' => 'john@example.com',
+                        'server' => '',
+                        'port' => '',
+                        'encryption' => '',
+                        'username' => '',
+                        'password' => ''
+                    ]
+                ]
+            ]
+        ]);
+        parent::setUp();
+    }
 
     /**
      * 
@@ -19,18 +41,6 @@ class SenderTest extends BearFrameworkAddonTestCase
     public function testSend()
     {
         $app = $this->getApp();
-        $app->addons->add('ivopetkov/smtp-emails-sender-bearframework-addon', [
-            'accounts' => [
-                [
-                    'email' => 'john@example.com',
-                    'server' => '',
-                    'port' => '',
-                    'encryption' => '',
-                    'username' => '',
-                    'password' => ''
-                ]
-            ]
-        ]);
 
         $email = $app->emails->make();
         $email->subject = 'Hi';
