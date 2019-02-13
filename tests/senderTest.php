@@ -15,24 +15,25 @@ class SenderTest extends BearFramework\AddonTests\PHPUnitTestCase
 
     /**
      * 
+     * @return \BearFramework\App
      */
-    protected function setUp()
+    protected function getApp(): \BearFramework\App
     {
-        $this->initializeApp([
-            'addonOptions' => [
-                'accounts' => [
-                    [
-                        'email' => 'john@example.com',
-                        'server' => '',
-                        'port' => '',
-                        'encryption' => '',
-                        'username' => '',
-                        'password' => ''
-                    ]
-                ]
-            ]
-        ]);
-        parent::setUp();
+        $app = parent::getApp();
+        $app->emails
+                ->registerSender(function() {
+                    return new IvoPetkov\BearFrameworkAddons\SMTPSender([
+                        [
+                            'email' => 'john@example.com',
+                            'server' => '',
+                            'port' => '',
+                            'encryption' => '',
+                            'username' => '',
+                            'password' => ''
+                        ]
+                    ]);
+                });
+        return $app;
     }
 
     /**
