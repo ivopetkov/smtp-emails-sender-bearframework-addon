@@ -21,18 +21,18 @@ class SenderTest extends BearFramework\AddonTests\PHPUnitTestCase
     {
         $app = parent::getApp();
         $app->emails
-                ->registerSender(function() {
-                    return new IvoPetkov\BearFrameworkAddons\SMTPSender([
-                        [
-                            'email' => 'john@example.com',
-                            'server' => '',
-                            'port' => '',
-                            'encryption' => '',
-                            'username' => '',
-                            'password' => ''
-                        ]
-                    ]);
-                });
+            ->registerSender(function () {
+                return new IvoPetkov\BearFrameworkAddons\SMTPSender([
+                    [
+                        'email' => 'john@example.com',
+                        'server' => '',
+                        'port' => '',
+                        'encryption' => '',
+                        'username' => '',
+                        'password' => ''
+                    ]
+                ]);
+            });
         return $app;
     }
 
@@ -60,5 +60,4 @@ class SenderTest extends BearFramework\AddonTests\PHPUnitTestCase
         }
         $this->assertFalse(true); // Should not come here.
     }
-
 }

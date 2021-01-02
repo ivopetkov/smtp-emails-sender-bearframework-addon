@@ -52,5 +52,4 @@ class SMTPSender implements \BearFramework\Emails\ISender
         }
         return false;
     }
-
 }
