@@ -17,7 +17,7 @@ class SenderTest extends BearFramework\AddonTests\PHPUnitTestCase
      * 
      * @return \BearFramework\App
      */
-    protected function getApp(): \BearFramework\App
+    public function getApp(): \BearFramework\App
     {
         $app = parent::getApp();
         $app->emails
